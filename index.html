@@ -92,36 +92,26 @@
             padding: 0 20px;
         }
 
-        /* 表格容器加宽，允许表格充分展开 */
+        /* 表格容器加宽，确保控件有足够空间 */
         .demos-container {
-            max-width: 95%; /* 调整为更宽的容器 */
+            max-width: 98%;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #eee;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            overflow-x: auto; /* 允许横向滚动 */
-        }
-        .demos-intro {
-            color: #444;
-            margin: 0 0 20px 0;
-            font-size: 16px;
-        }
-        .speaker-label {
-            font-weight: bold;
-            margin: 0 0 15px 0;
-            color: #333;
+            overflow-x: auto;
         }
         .demos-table {
             width: 100%;
-            min-width: 1200px; /* 确保表格有足够宽度 */
+            min-width: 1600px;
             border-collapse: collapse;
             margin-top: 10px;
         }
         .demos-table th,
         .demos-table td {
             border: 1px solid #e0e0e0;
-            padding: 12px 8px; /* 减少单元格内边距，增加可用空间 */
+            padding: 12px 10px;
             text-align: left;
             vertical-align: middle;
         }
@@ -131,15 +121,8 @@
             color: #333;
             white-space: nowrap;
         }
-        .demos-table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
         .text-row td {
             background-color: #f9f9f9;
-        }
-        .audio-text {
-            color: #333;
-            line-height: 1.5;
         }
         .audio-text .chinese {
             font-size: 15px;
@@ -151,21 +134,20 @@
             font-style: italic;
         }
 
-        /* 音频控制区布局优化 */
+        /* 音频控制区：调整比例和间距 */
         .audio-control {
             display: flex;
             align-items: center;
-            gap: 12px; /* 增加元素间距 */
+            gap: 10px; /* 适当减小间距 */
             padding: 10px 0;
-            width: 100%; /* 占满单元格宽度 */
+            width: 100%;
         }
         .audio-play {
             border: none;
             background: none;
             color: #2196f3;
             cursor: pointer;
-            font-size: 18px; /* 稍微放大播放按钮 */
-            padding: 4px;
+            font-size: 18px;
             width: 30px;
             height: 30px;
             display: flex;
@@ -178,10 +160,10 @@
             border-radius: 50%;
         }
 
-        /* 音频进度条加长 */
+        /* 进度条：适当缩短比例 */
         .audio-progress {
-            flex: 3; /* 进度条占比更大 */
-            height: 6px; /* 稍微加粗 */
+            flex: 1.5; /* 调整为1.5倍比例 */
+            height: 6px;
             background-color: #eee;
             border-radius: 3px;
             position: relative;
@@ -204,18 +186,18 @@
 
         .audio-time {
             font-size: 13px;
-            color: #666; /* 加深时间颜色 */
+            color: #666;
             white-space: nowrap;
-            width: 70px; /* 稍微加宽时间显示区 */
+            width: 70px;
             text-align: center;
         }
 
-        /* 音量控制区优化（与进度条长度更协调） */
+        /* 音量控制区：适当加长比例 */
         .volume-container {
             display: flex;
             align-items: center;
-            gap: 6px;
-            flex: 1; /* 音量条占比适中 */
+            gap: 8px;
+            flex: 1; /* 调整为1倍比例（进度条:音量条=1.5:1） */
         }
         .audio-volume {
             color: #666;
@@ -225,21 +207,21 @@
             text-align: center;
         }
 
-        /* 音量滑块样式优化（添加拖动颜色覆盖） */
+        /* 音量滑块样式 */
         .volume-slider {
             -webkit-appearance: none;
             width: 100%;
             height: 6px;
-            background: #eee;
             border-radius: 3px;
             outline: none;
             margin: 0;
+            background: linear-gradient(to right, #2196f3 0%, #2196f3 var(--volume), #eee var(--volume), #eee 100%);
         }
-        /* webkit浏览器滑块轨道样式（已拖动部分） */
         .volume-slider::-webkit-slider-runnable-track {
+            -webkit-appearance: none;
             height: 6px;
             border-radius: 3px;
-            background: #eee;
+            background: linear-gradient(to right, #2196f3 0%, #2196f3 var(--volume), #eee var(--volume), #eee 100%);
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -248,10 +230,9 @@
             border-radius: 50%;
             background: #2196f3;
             cursor: pointer;
-            margin-top: -5px; /* 对齐轨道 */
+            margin-top: -5px;
             box-shadow: 0 0 2px rgba(0,0,0,0.2);
         }
-        /* Firefox滑块样式 */
         .volume-slider::-moz-range-track {
             height: 6px;
             border-radius: 3px;
@@ -275,6 +256,7 @@
     </style>
 </head>
 <body>
+    <!-- 内容部分与原代码一致 -->
     <header>
         <h1>Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents</h1>
         <div class="authors">Hanrong Zhang¹, Jingyuan Huang², Kai Mei², Yifei Yao¹, Zhenting Wang², Chenlu Zhan¹, Hongwei Wang¹, Yongfeng Zhang²</div>
@@ -422,6 +404,7 @@
     </main>
 
     <script>
+        // JavaScript部分与原代码一致
         document.addEventListener('DOMContentLoaded', function() {
             // 播放/暂停控制
             document.querySelectorAll('.audio-play').forEach(btn => {
@@ -496,9 +479,8 @@
                 });
             });
 
-            // 音量滑块控制（添加颜色覆盖效果）
+            // 音量滑块控制（颜色覆盖效果）
             document.querySelectorAll('.volume-slider').forEach(slider => {
-                // 初始化音量条颜色
                 slider.style.setProperty('--volume', `${slider.value}%`);
                 
                 slider.addEventListener('input', function() {
@@ -508,7 +490,6 @@
                     
                     const volume = this.value / 100;
                     audio.volume = volume;
-                    // 更新音量条颜色覆盖
                     this.style.setProperty('--volume', `${this.value}%`);
                     updateVolumeIcon(volumeIcon, volume);
                 });
