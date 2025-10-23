@@ -6,6 +6,7 @@
     <title>Agent Security Bench (ASB)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* 样式部分保持不变 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -122,7 +123,7 @@
             border: 1px solid #e0e0e0;
             padding: 12px;
             text-align: left;
-            vertical-align: middle; /* 合并后垂直居中 */
+            vertical-align: middle;
         }
         .demos-table th {
             background-color: #f5f7fa;
@@ -133,7 +134,6 @@
         .demos-table tr:nth-child(even) {
             background-color: #fafafa;
         }
-        /* 文本行样式 */
         .text-row td {
             background-color: #f9f9f9;
         }
@@ -151,7 +151,6 @@
             font-style: italic;
         }
 
-        /* 音频控件样式 */
         .audio-control {
             display: flex;
             align-items: center;
@@ -190,26 +189,54 @@
             font-size: 12px;
             color: #888;
             white-space: nowrap;
+            width: 60px;
+        }
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            width: 80px;
         }
         .audio-volume {
             color: #888;
             font-size: 14px;
             cursor: pointer;
+            width: 16px;
         }
-        .audio-menu {
-            color: #888;
-            font-size: 14px;
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #eee;
+            outline: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2196f3;
             cursor: pointer;
         }
-        /* 合并后Emotion单元格样式 */
+        .volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2196f3;
+            cursor: pointer;
+            border: none;
+        }
         .emotion-cell {
             font-weight: bold;
             color: #2c3e50;
-            padding: 20px 12px; /* 增加内边距使内容更居中 */
+            padding: 20px 12px;
         }
     </style>
 </head>
 <body>
+    <!-- HTML结构保持不变 -->
     <header>
         <h1>Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents</h1>
         <div class="authors">Hanrong Zhang¹, Jingyuan Huang², Kai Mei², Yifei Yao¹, Zhenting Wang², Chenlu Zhan¹, Hongwei Wang¹, Yongfeng Zhang²</div>
@@ -242,9 +269,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 文本行：Emotion列合并单元格（跨两行） -->
                     <tr class="text-row">
-                        <td rowspan="2" class="emotion-cell">Poet + Happy</td> <!-- 合并两行的Emotion列 -->
+                        <td rowspan="2" class="emotion-cell">Poet + Happy</td>
                         <td colspan="6">
                             <div class="audio-text">
                                 <span class="chinese">Text: 长风破浪会有时，直挂云帆济沧海。</span>
@@ -252,7 +278,6 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- 音频行：无需再设置Emotion列（已合并） -->
                     <tr>
                         <td>
                             <div class="audio-control">
@@ -262,10 +287,12 @@
                                 <div class="audio-progress" data-audio="audio1">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 03:42</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio1"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
-                                <audio id="audio1" src="audio_folder/daoxiang.mp3" preload="metadata">
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio1"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio1">
+                                </div>
+                                <audio id="audio1" src="audio/poet_happy_style.mp3" preload="metadata">
                             </div>
                         </td>
                         <td>
@@ -276,9 +303,11 @@
                                 <div class="audio-progress" data-audio="audio2">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 00:04</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio2"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio2"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio2">
+                                </div>
                                 <audio id="audio2" src="audio/poet_happy_emotion.mp3" preload="metadata">
                             </div>
                         </td>
@@ -290,9 +319,11 @@
                                 <div class="audio-progress" data-audio="audio3">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 00:05</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio3"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio3"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio3">
+                                </div>
                                 <audio id="audio3" src="audio/poet_happy_target.mp3" preload="metadata">
                             </div>
                         </td>
@@ -304,9 +335,11 @@
                                 <div class="audio-progress" data-audio="audio4">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 00:05</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio4"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio4"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio4">
+                                </div>
                                 <audio id="audio4" src="audio/poet_happy_tsew.mp3" preload="metadata">
                             </div>
                         </td>
@@ -318,9 +351,11 @@
                                 <div class="audio-progress" data-audio="audio5">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 00:05</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio5"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio5"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio5">
+                                </div>
                                 <audio id="audio5" src="audio/poet_happy_cgclone.mp3" preload="metadata">
                             </div>
                         </td>
@@ -332,9 +367,11 @@
                                 <div class="audio-progress" data-audio="audio6">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 00:05</span>
-                                <i class="fas fa-volume-up audio-volume" data-audio="audio6"></i>
-                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <span class="audio-time">00:00 / 00:00</span>
+                                <div class="volume-container">
+                                    <i class="fas fa-volume-up audio-volume" data-audio="audio6"></i>
+                                    <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio6">
+                                </div>
                                 <audio id="audio6" src="audio/poet_happy_proposed.mp3" preload="metadata">
                             </div>
                         </td>
@@ -367,15 +404,30 @@
                 });
             });
 
-            // 进度条更新与时间显示
+            // 进度条更新与时间显示（核心修复部分）
             document.querySelectorAll('audio').forEach(audio => {
-                audio.addEventListener('timeupdate', function() {
-                    const progress = (this.currentTime / this.duration) * 100;
-                    const progressBar = document.querySelector(`.audio-progress[data-audio="${this.id}"] .audio-progress-bar`);
-                    const timeDisplay = document.querySelector(`.audio-control[data-audio="${this.id}"] .audio-time`);
-                    
-                    if (progressBar) progressBar.style.width = `${progress}%`;
+                // 1. 音频元数据加载完成后初始化时间（获取总时长）
+                audio.addEventListener('loadedmetadata', function() {
+                    const timeDisplay = this.closest('.audio-control').querySelector('.audio-time');
                     if (timeDisplay) {
+                        const duration = formatTime(this.duration);
+                        timeDisplay.textContent = `00:00 / ${duration}`;
+                    }
+                });
+
+                // 2. 播放进度更新时实时刷新时间
+                audio.addEventListener('timeupdate', function() {
+                    // 修复：通过音频元素找到父容器，再获取时间显示元素
+                    const timeDisplay = this.closest('.audio-control').querySelector('.audio-time');
+                    const progressBar = document.querySelector(`.audio-progress[data-audio="${this.id}"] .audio-progress-bar`);
+                    
+                    if (progressBar) {
+                        const progress = (this.currentTime / this.duration) * 100;
+                        progressBar.style.width = `${progress}%`;
+                    }
+                    
+                    // 确保时间显示元素存在且音频时长有效
+                    if (timeDisplay && !isNaN(this.duration)) {
                         const currentTime = formatTime(this.currentTime);
                         const duration = formatTime(this.duration);
                         timeDisplay.textContent = `${currentTime} / ${duration}`;
@@ -392,8 +444,9 @@
                 });
             });
 
-            // 时间格式化 (00:00)
+            // 时间格式化（处理无效时长）
             function formatTime(seconds) {
+                if (isNaN(seconds)) return '00:00'; // 避免音频加载失败时的错误
                 const mins = Math.floor(seconds / 60);
                 const secs = Math.floor(seconds % 60);
                 return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -410,23 +463,49 @@
                 });
             });
 
-            // 音量控制（静音切换）
-            document.querySelectorAll('.audio-volume').forEach(volumeBtn => {
-                volumeBtn.addEventListener('click', function() {
+            // 音量滑块控制
+            document.querySelectorAll('.volume-slider').forEach(slider => {
+                slider.addEventListener('input', function() {
                     const audioId = this.getAttribute('data-audio');
                     const audio = document.getElementById(audioId);
+                    const volumeIcon = document.querySelector(`.audio-volume[data-audio="${audioId}"]`);
                     
-                    if (audio.volume > 0) {
-                        audio.volume = 0;
-                        this.classList.remove('fa-volume-up');
-                        this.classList.add('fa-volume-mute');
-                    } else {
-                        audio.volume = 1;
-                        this.classList.remove('fa-volume-mute');
-                        this.classList.add('fa-volume-up');
-                    }
+                    const volume = this.value / 100;
+                    audio.volume = volume;
+                    updateVolumeIcon(volumeIcon, volume);
                 });
             });
+
+            // 音量图标点击切换静音
+            document.querySelectorAll('.audio-volume').forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const audioId = this.getAttribute('data-audio');
+                    const audio = document.getElementById(audioId);
+                    const slider = document.querySelector(`.volume-slider[data-audio="${audioId}"]`);
+                    
+                    if (audio.volume > 0) {
+                        slider.dataset.lastVolume = audio.volume;
+                        audio.volume = 0;
+                        slider.value = 0;
+                    } else {
+                        const lastVolume = slider.dataset.lastVolume || 1;
+                        audio.volume = lastVolume;
+                        slider.value = lastVolume * 100;
+                    }
+                    updateVolumeIcon(this, audio.volume);
+                });
+            });
+
+            function updateVolumeIcon(icon, volume) {
+                icon.className = 'fas';
+                if (volume === 0) {
+                    icon.classList.add('fa-volume-mute');
+                } else if (volume < 0.5) {
+                    icon.classList.add('fa-volume-down');
+                } else {
+                    icon.classList.add('fa-volume-up');
+                }
+            }
         });
     </script>
 </body>
