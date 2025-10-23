@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent Security Bench (ASB)</title>
-    <!-- 引入Font Awesome图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -13,6 +12,7 @@
             padding: 20px;
             background-color: #fff;
             color: #333;
+            line-height: 1.6;
         }
         header {
             text-align: center;
@@ -22,6 +22,11 @@
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 15px;
+        }
+        h2 {
+            color: #2a7fff;
+            margin: 40px 0 20px;
+            font-size: 22px;
         }
         .authors {
             font-size: 16px;
@@ -35,7 +40,7 @@
         }
         .accepted {
             font-size: 18px;
-            color: #e44d26; /* 红色突出ICLR Accepted */
+            color: #e44d26;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -44,6 +49,7 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         .btn {
             display: flex;
@@ -51,7 +57,6 @@
             gap: 8px;
             padding: 8px 15px;
             border-radius: 20px;
-            background-color: #333;
             color: #fff;
             text-decoration: none;
             font-size: 14px;
@@ -61,19 +66,19 @@
             opacity: 0.9;
             transform: translateY(-2px);
         }
-        .btn-paper {
-            background-color: #2196f3; /* 蓝色Paper按钮 */
+        .btn-dataset {
+            background-color: #9c27b0;
         }
         .btn-arxiv {
-            background-color: #ff9800; /* 橙色arXiv按钮 */
+            background-color: #ff9800;
         }
         .btn-code {
-            background-color: #4caf50; /* 绿色Code按钮 */
+            background-color: #4caf50;
         }
         .framework-img {
             display: block;
             max-width: 100%;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
@@ -82,6 +87,125 @@
             color: #555;
             font-size: 15px;
             text-align: center;
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+
+        .demos-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .demos-intro {
+            color: #444;
+            margin: 0 0 20px 0;
+            font-size: 16px;
+        }
+        .speaker-label {
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        .demos-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            overflow-x: auto;
+            display: block;
+        }
+        .demos-table th,
+        .demos-table td {
+            border: 1px solid #e0e0e0;
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle; /* 合并后垂直居中 */
+        }
+        .demos-table th {
+            background-color: #f5f7fa;
+            font-weight: bold;
+            color: #333;
+            white-space: nowrap;
+        }
+        .demos-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        /* 文本行样式 */
+        .text-row td {
+            background-color: #f9f9f9;
+        }
+        .audio-text {
+            color: #333;
+            line-height: 1.5;
+        }
+        .audio-text .chinese {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        .audio-text .english {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* 音频控件样式 */
+        .audio-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .audio-play {
+            border: none;
+            background: none;
+            color: #2196f3;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+        }
+        .audio-play:hover {
+            color: #1976d2;
+        }
+        .audio-progress {
+            flex: 1;
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+        .audio-progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: #2196f3;
+            width: 0%;
+            border-radius: 2px;
+        }
+        .audio-time {
+            font-size: 12px;
+            color: #888;
+            white-space: nowrap;
+        }
+        .audio-volume {
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .audio-menu {
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        /* 合并后Emotion单元格样式 */
+        .emotion-cell {
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 20px 12px; /* 增加内边距使内容更居中 */
         }
     </style>
 </head>
@@ -92,14 +216,218 @@
         <div class="institutions">¹Zhejiang University, ²Rutgers University</div>
         <div class="accepted">ICLR 2025 Accepted</div>
         <div class="btn-group">
-            <a href="#" class="btn btn-paper"><i class="fas fa-file-pdf"></i> Paper</a>
-            <a href="https://arxiv.org/pdf/2504.14906" class="btn btn-arxiv"><i class="fas fa-robot"></i> arXiv</a>
-            <a href="https://github.com/17538391452/17538391452.github.io" class="btn btn-code"><i class="fas fa-code"></i> Code</a>
+            <a href="#" class="btn btn-dataset"><i class="fas fa-database"></i> Dataset</a>
+            <a href="#" class="btn btn-arxiv"><i class="fas fa-robot"></i> arXiv</a>
+            <a href="#" class="btn btn-code"><i class="fas fa-code"></i> Code</a>
         </div>
     </header>
     <main>
         <img src="framework_diagram.png" alt="LLM Agent Attacking Framework" class="framework-img">
-        <p class="description">Overview of the LLM Agent Attacking Framework, including Direct Prompt Injections (DPI), Indirect Prompt Injections (IPI), Plan-of-Thought (PoT) Backdoor, and Memory Poisoning Attacks, which target the user query, observations, system prompts, and memory retrieval respectively of the agent during action planning and execution.</p>
+
+        <div class="demos-container">
+            <h2>2. Demos - multilingual expressive speech with a specific style and emotion for target speakers</h2>
+            <p class="demos-intro">Convert the emotion and style expressions from different source speakers to the neutral target speakers without emotional and stylistic training data</p>
+            <p class="speaker-label">Chinese speaker: F1</p>
+
+            <table class="demos-table">
+                <thead>
+                    <tr>
+                        <th>Emotion</th>
+                        <th>Target style example</th>
+                        <th>Target emotion example</th>
+                        <th>Target-speaker example</th>
+                        <th>TSEW</th>
+                        <th>CGCLONE</th>
+                        <th>Proposed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 文本行：Emotion列合并单元格（跨两行） -->
+                    <tr class="text-row">
+                        <td rowspan="2" class="emotion-cell">Poet + Happy</td> <!-- 合并两行的Emotion列 -->
+                        <td colspan="6">
+                            <div class="audio-text">
+                                <span class="chinese">Text: 长风破浪会有时，直挂云帆济沧海。</span>
+                                <span class="english">(English: Someday, with my sail piercing the clouds; I will mount the wind, break the waves, and traverse the vast, rolling sea.)</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 音频行：无需再设置Emotion列（已合并） -->
+                    <tr>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio1">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio1">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:05</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio1"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio1" src="audio/poet_happy_style.mp3" preload="metadata">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio2">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio2">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:04</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio2"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio2" src="audio/poet_happy_emotion.mp3" preload="metadata">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio3">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio3">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:05</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio3"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio3" src="audio/poet_happy_target.mp3" preload="metadata">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio4">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio4">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:05</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio4"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio4" src="audio/poet_happy_tsew.mp3" preload="metadata">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio5">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio5">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:05</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio5"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio5" src="audio/poet_happy_cgclone.mp3" preload="metadata">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="audio-control">
+                                <button class="audio-play" data-audio="audio6">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="audio-progress" data-audio="audio6">
+                                    <div class="audio-progress-bar"></div>
+                                </div>
+                                <span class="audio-time">00:00 / 00:05</span>
+                                <i class="fas fa-volume-up audio-volume" data-audio="audio6"></i>
+                                <i class="fas fa-ellipsis-v audio-menu"></i>
+                                <audio id="audio6" src="audio/poet_happy_proposed.mp3" preload="metadata">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="description">Overview including Direct Prompt Injections (DPI), Indirect Prompt Injections (IPI), Plan-of-Thought (PoT) Backdoor, and Memory Poisoning Attacks, which target the user query, observations, system prompts, and memory retrieval respectively of the agent during action planning and execution.</p>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 播放/暂停控制
+            document.querySelectorAll('.audio-play').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const audioId = this.getAttribute('data-audio');
+                    const audio = document.getElementById(audioId);
+                    const icon = this.querySelector('i');
+                    
+                    if (audio.paused) {
+                        audio.play();
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
+                    } else {
+                        audio.pause();
+                        icon.classList.remove('fa-pause');
+                        icon.classList.add('fa-play');
+                    }
+                });
+            });
+
+            // 进度条更新与时间显示
+            document.querySelectorAll('audio').forEach(audio => {
+                audio.addEventListener('timeupdate', function() {
+                    const progress = (this.currentTime / this.duration) * 100;
+                    const progressBar = document.querySelector(`.audio-progress[data-audio="${this.id}"] .audio-progress-bar`);
+                    const timeDisplay = document.querySelector(`.audio-control[data-audio="${this.id}"] .audio-time`);
+                    
+                    if (progressBar) progressBar.style.width = `${progress}%`;
+                    if (timeDisplay) {
+                        const currentTime = formatTime(this.currentTime);
+                        const duration = formatTime(this.duration);
+                        timeDisplay.textContent = `${currentTime} / ${duration}`;
+                    }
+                });
+
+                // 播放结束重置图标
+                audio.addEventListener('ended', function() {
+                    const playBtn = document.querySelector(`.audio-play[data-audio="${this.id}"] i`);
+                    if (playBtn) {
+                        playBtn.classList.remove('fa-pause');
+                        playBtn.classList.add('fa-play');
+                    }
+                });
+            });
+
+            // 时间格式化 (00:00)
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            // 点击进度条跳转
+            document.querySelectorAll('.audio-progress').forEach(progress => {
+                progress.addEventListener('click', function(e) {
+                    const audioId = this.getAttribute('data-audio');
+                    const audio = document.getElementById(audioId);
+                    const rect = this.getBoundingClientRect();
+                    const pos = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = pos * audio.duration;
+                });
+            });
+
+            // 音量控制（静音切换）
+            document.querySelectorAll('.audio-volume').forEach(volumeBtn => {
+                volumeBtn.addEventListener('click', function() {
+                    const audioId = this.getAttribute('data-audio');
+                    const audio = document.getElementById(audioId);
+                    
+                    if (audio.volume > 0) {
+                        audio.volume = 0;
+                        this.classList.remove('fa-volume-up');
+                        this.classList.add('fa-volume-mute');
+                    } else {
+                        audio.volume = 1;
+                        this.classList.remove('fa-volume-mute');
+                        this.classList.add('fa-volume-up');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
