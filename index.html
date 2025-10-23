@@ -6,7 +6,6 @@
     <title>Agent Security Bench (ASB)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 样式部分保持不变 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -93,13 +92,15 @@
             padding: 0 20px;
         }
 
+        /* 表格容器加宽，允许表格充分展开 */
         .demos-container {
-            max-width: 1400px;
+            max-width: 95%; /* 调整为更宽的容器 */
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #eee;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow-x: auto; /* 允许横向滚动 */
         }
         .demos-intro {
             color: #444;
@@ -113,15 +114,14 @@
         }
         .demos-table {
             width: 100%;
+            min-width: 1200px; /* 确保表格有足够宽度 */
             border-collapse: collapse;
             margin-top: 10px;
-            overflow-x: auto;
-            display: block;
         }
         .demos-table th,
         .demos-table td {
             border: 1px solid #e0e0e0;
-            padding: 12px;
+            padding: 12px 8px; /* 减少单元格内边距，增加可用空间 */
             text-align: left;
             vertical-align: middle;
         }
@@ -151,30 +151,45 @@
             font-style: italic;
         }
 
+        /* 音频控制区布局优化 */
         .audio-control {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
+            gap: 12px; /* 增加元素间距 */
+            padding: 10px 0;
+            width: 100%; /* 占满单元格宽度 */
         }
         .audio-play {
             border: none;
             background: none;
             color: #2196f3;
             cursor: pointer;
-            font-size: 16px;
-            padding: 0;
+            font-size: 18px; /* 稍微放大播放按钮 */
+            padding: 4px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .audio-play:hover {
             color: #1976d2;
+            background-color: rgba(33, 150, 243, 0.1);
+            border-radius: 50%;
         }
+
+        /* 音频进度条加长 */
         .audio-progress {
-            flex: 1;
-            height: 4px;
+            flex: 3; /* 进度条占比更大 */
+            height: 6px; /* 稍微加粗 */
             background-color: #eee;
-            border-radius: 2px;
+            border-radius: 3px;
             position: relative;
             cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .audio-progress:hover {
+            background-color: #e0e0e0;
         }
         .audio-progress-bar {
             position: absolute;
@@ -183,51 +198,75 @@
             height: 100%;
             background-color: #2196f3;
             width: 0%;
-            border-radius: 2px;
+            border-radius: 3px;
+            transition: width 0.1s linear;
         }
+
         .audio-time {
-            font-size: 12px;
-            color: #888;
+            font-size: 13px;
+            color: #666; /* 加深时间颜色 */
             white-space: nowrap;
-            width: 60px;
+            width: 70px; /* 稍微加宽时间显示区 */
+            text-align: center;
         }
+
+        /* 音量控制区优化（与进度条长度更协调） */
         .volume-container {
             display: flex;
             align-items: center;
-            gap: 5px;
-            width: 80px;
+            gap: 6px;
+            flex: 1; /* 音量条占比适中 */
         }
         .audio-volume {
-            color: #888;
-            font-size: 14px;
+            color: #666;
+            font-size: 16px;
             cursor: pointer;
-            width: 16px;
+            width: 20px;
+            text-align: center;
         }
+
+        /* 音量滑块样式优化（添加拖动颜色覆盖） */
         .volume-slider {
             -webkit-appearance: none;
             width: 100%;
-            height: 4px;
-            border-radius: 2px;
+            height: 6px;
             background: #eee;
+            border-radius: 3px;
             outline: none;
+            margin: 0;
+        }
+        /* webkit浏览器滑块轨道样式（已拖动部分） */
+        .volume-slider::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 3px;
+            background: #eee;
         }
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #2196f3;
             cursor: pointer;
+            margin-top: -5px; /* 对齐轨道 */
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+        }
+        /* Firefox滑块样式 */
+        .volume-slider::-moz-range-track {
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #2196f3 0%, #2196f3 var(--volume), #eee var(--volume), #eee 100%);
         }
         .volume-slider::-moz-range-thumb {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #2196f3;
             cursor: pointer;
             border: none;
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
         }
+
         .emotion-cell {
             font-weight: bold;
             color: #2c3e50;
@@ -236,7 +275,6 @@
     </style>
 </head>
 <body>
-    <!-- HTML结构保持不变 -->
     <header>
         <h1>Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents</h1>
         <div class="authors">Hanrong Zhang¹, Jingyuan Huang², Kai Mei², Yifei Yao¹, Zhenting Wang², Chenlu Zhan¹, Hongwei Wang¹, Yongfeng Zhang²</div>
@@ -303,12 +341,12 @@
                                 <div class="audio-progress" data-audio="audio2">
                                     <div class="audio-progress-bar"></div>
                                 </div>
-                                <span class="audio-time">00:00 / 05:28</span>
+                                <span class="audio-time">00:00 / 00:00</span>
                                 <div class="volume-container">
                                     <i class="fas fa-volume-up audio-volume" data-audio="audio2"></i>
                                     <input type="range" min="0" max="100" value="100" class="volume-slider" data-audio="audio2">
                                 </div>
-                                <audio id="audio2" src="audio_folder/chengdu.mp3" preload="metadata">
+                                <audio id="audio2" src="audio/poet_happy_emotion.mp3" preload="metadata">
                             </div>
                         </td>
                         <td>
@@ -404,9 +442,8 @@
                 });
             });
 
-            // 进度条更新与时间显示（核心修复部分）
+            // 进度条更新与时间显示
             document.querySelectorAll('audio').forEach(audio => {
-                // 1. 音频元数据加载完成后初始化时间（获取总时长）
                 audio.addEventListener('loadedmetadata', function() {
                     const timeDisplay = this.closest('.audio-control').querySelector('.audio-time');
                     if (timeDisplay) {
@@ -415,9 +452,7 @@
                     }
                 });
 
-                // 2. 播放进度更新时实时刷新时间
                 audio.addEventListener('timeupdate', function() {
-                    // 修复：通过音频元素找到父容器，再获取时间显示元素
                     const timeDisplay = this.closest('.audio-control').querySelector('.audio-time');
                     const progressBar = document.querySelector(`.audio-progress[data-audio="${this.id}"] .audio-progress-bar`);
                     
@@ -426,7 +461,6 @@
                         progressBar.style.width = `${progress}%`;
                     }
                     
-                    // 确保时间显示元素存在且音频时长有效
                     if (timeDisplay && !isNaN(this.duration)) {
                         const currentTime = formatTime(this.currentTime);
                         const duration = formatTime(this.duration);
@@ -434,7 +468,6 @@
                     }
                 });
 
-                // 播放结束重置图标
                 audio.addEventListener('ended', function() {
                     const playBtn = document.querySelector(`.audio-play[data-audio="${this.id}"] i`);
                     if (playBtn) {
@@ -444,9 +477,9 @@
                 });
             });
 
-            // 时间格式化（处理无效时长）
+            // 时间格式化
             function formatTime(seconds) {
-                if (isNaN(seconds)) return '00:00'; // 避免音频加载失败时的错误
+                if (isNaN(seconds)) return '00:00';
                 const mins = Math.floor(seconds / 60);
                 const secs = Math.floor(seconds % 60);
                 return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -463,8 +496,11 @@
                 });
             });
 
-            // 音量滑块控制
+            // 音量滑块控制（添加颜色覆盖效果）
             document.querySelectorAll('.volume-slider').forEach(slider => {
+                // 初始化音量条颜色
+                slider.style.setProperty('--volume', `${slider.value}%`);
+                
                 slider.addEventListener('input', function() {
                     const audioId = this.getAttribute('data-audio');
                     const audio = document.getElementById(audioId);
@@ -472,11 +508,13 @@
                     
                     const volume = this.value / 100;
                     audio.volume = volume;
+                    // 更新音量条颜色覆盖
+                    this.style.setProperty('--volume', `${this.value}%`);
                     updateVolumeIcon(volumeIcon, volume);
                 });
             });
 
-            // 音量图标点击切换静音
+            // 音量图标切换
             document.querySelectorAll('.audio-volume').forEach(icon => {
                 icon.addEventListener('click', function() {
                     const audioId = this.getAttribute('data-audio');
@@ -487,10 +525,12 @@
                         slider.dataset.lastVolume = audio.volume;
                         audio.volume = 0;
                         slider.value = 0;
+                        slider.style.setProperty('--volume', '0%');
                     } else {
                         const lastVolume = slider.dataset.lastVolume || 1;
                         audio.volume = lastVolume;
                         slider.value = lastVolume * 100;
+                        slider.style.setProperty('--volume', `${lastVolume * 100}%`);
                     }
                     updateVolumeIcon(this, audio.volume);
                 });
